@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User profile and private subcollections
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /history/{historyId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /endpoints/{endpointId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /channels/{channelId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /pushedAssets/{assetId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Public / shared read-only collections fallback
+    match /{document=**} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

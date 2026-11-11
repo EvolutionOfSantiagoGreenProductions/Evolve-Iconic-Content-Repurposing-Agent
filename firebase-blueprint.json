@@ -1,0 +1,80 @@
+{
+  "$schema": "https://firebase.google.com/schemas/firestore-blueprint.json",
+  "entities": {
+    "users": {
+      "title": "User Profile & Preferences",
+      "description": "Stores user preferences, active channel, and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "activeChannelHandle": { "type": "string" },
+        "isTurboActive": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid"]
+    },
+    "history": {
+      "title": "Campaign Ingestion History",
+      "description": "User generated multi-platform campaigns and Mindstorm matrices",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "video": { "type": "object" },
+        "data": { "type": "object" },
+        "timestamp": { "type": "string" },
+        "targetNiche": { "type": "string" },
+        "tone": { "type": "string" },
+        "syncedChannelHandle": { "type": "string" },
+        "turboCharged": { "type": "boolean" }
+      },
+      "required": ["id", "video", "data", "timestamp"]
+    },
+    "endpoints": {
+      "title": "Custom Webhook Endpoints",
+      "description": "User custom webhook destinations for 1-click dispatch",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "method": { "type": "string" },
+        "enabled": { "type": "boolean" }
+      },
+      "required": ["id", "name", "url", "method", "enabled"]
+    },
+    "channels": {
+      "title": "Synced YouTube Channel Intelligence",
+      "description": "Stored channel DNA profiles and Knowledge Graph clusters",
+      "type": "object",
+      "properties": {
+        "profile": { "type": "object" },
+        "workingStrategies": { "type": "array" },
+        "kgNodeClusters": { "type": "array" },
+        "audiencePersona": { "type": "object" },
+        "overallSledgehammerScore": { "type": "number" },
+        "topRecommendation": { "type": "string" }
+      },
+      "required": ["profile", "workingStrategies", "kgNodeClusters"]
+    },
+    "pushedAssets": {
+      "title": "Pushed YouTube Asset Log",
+      "description": "Running record of pushed YouTube assets, timestamps, baseline metrics, and audit results",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "videoId": { "type": "string" },
+        "videoTitle": { "type": "string" },
+        "assetType": { "type": "string" },
+        "pushedPayload": { "type": "object" },
+        "timestamp": { "type": "string" },
+        "baselineMetrics": { "type": "object" },
+        "latestAudit": { "type": "object" },
+        "channelHandle": { "type": "string" }
+      },
+      "required": ["id", "videoId", "assetType", "pushedPayload", "timestamp"]
+    }
+  }
+}
